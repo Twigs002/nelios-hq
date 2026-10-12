@@ -36,6 +36,10 @@ if (process.env.AUTH_DEV_LOGIN === "true") {
 
 export const authConfig = {
   trustHost: true,
+  // Pin secure-cookie mode to the deployment protocol so the edge middleware
+  // and the Node routes agree on the cookie name (https -> __Secure- prefix).
+  // Keyed off AUTH_URL: https locally-or-deployed uses secure; http does not.
+  useSecureCookies: !!process.env.AUTH_URL?.startsWith("https://"),
   pages: { signIn: "/signin" },
   providers,
   callbacks: {
