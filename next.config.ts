@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
   // Bundle the snapshot fonts + brand logos into the serverless functions that
   // read them from disk (the Satori renderer).
   outputFileTracingIncludes: {
+    // DEMO: the pre-seeded PGlite dump is read by every data route.
+    "/**": ["./db/demo-seed.tar.gz"],
     "/sellers/[id]/snapshot/image": [
       "./app/(app)/sellers/[id]/snapshot/image/fonts/*.woff",
       "./public/brand/*.png",
