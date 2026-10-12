@@ -13,6 +13,7 @@ export default async function SignInPage({
   const { error } = await searchParams;
   const refused = error === "AccessDenied";
   const devLogin = process.env.AUTH_DEV_LOGIN === "true";
+  const demo = process.env.DEMO_DB === "true";
   const emails = allowedEmails();
 
   return (
@@ -28,9 +29,11 @@ export default async function SignInPage({
         />
         <div className="flex flex-col gap-2">
           <span className="label">Nelio&apos;s HQ</span>
-          <h1 className="text-h1">Welcome back</h1>
+          <h1 className="text-h1">{demo ? "Live demo" : "Welcome back"}</h1>
           <p className="text-body text-ink-2">
-            Sign in with your Quay 1 Google account to continue.
+            {demo
+              ? "A quick look with sample data. Pick a person to explore."
+              : "Sign in with your Quay 1 Google account to continue."}
           </p>
         </div>
 
@@ -41,31 +44,33 @@ export default async function SignInPage({
           </p>
         )}
 
-        <form
-          className="w-full"
-          action={async () => {
-            "use server";
-            await signIn("google", { redirectTo: "/" });
-          }}
-        >
-          <button
-            type="submit"
-            className="w-full h-12 rounded-2 border border-line-strong bg-raised text-ink font-semibold text-[15px] flex items-center justify-center gap-3 transition-colors duration-[180ms] hover:bg-paper"
+        {!demo && (
+          <form
+            className="w-full"
+            action={async () => {
+              "use server";
+              await signIn("google", { redirectTo: "/" });
+            }}
           >
-            <GoogleGlyph />
-            Continue with Google
-          </button>
-        </form>
+            <button
+              type="submit"
+              className="w-full h-12 rounded-2 border border-line-strong bg-raised text-ink font-semibold text-[15px] flex items-center justify-center gap-3 transition-colors duration-[180ms] hover:bg-paper"
+            >
+              <GoogleGlyph />
+              Continue with Google
+            </button>
+          </form>
+        )}
 
         {devLogin && (
           <form
-            className="w-full flex flex-col gap-2 border-t border-line pt-6"
+            className={`w-full flex flex-col gap-2 ${demo ? "" : "border-t border-line pt-6"}`}
             action={async (fd) => {
               "use server";
               await signIn("dev", { email: String(fd.get("email")), redirectTo: "/" });
             }}
           >
-            <span className="label">Local dev sign-in</span>
+            <span className="label">{demo ? "Explore as" : "Local dev sign-in"}</span>
             <select
               name="email"
               defaultValue={emails[0] ?? ""}
@@ -79,9 +84,9 @@ export default async function SignInPage({
             </select>
             <button
               type="submit"
-              className="h-11 rounded-2 border border-line-strong bg-transparent text-ink font-semibold text-[14px] hover:bg-paper"
+              className={`h-11 rounded-2 font-semibold text-[14px] ${demo ? "bg-accent text-accent-ink hover:bg-accent-hover" : "border border-line-strong bg-transparent text-ink hover:bg-paper"}`}
             >
-              Continue without Google
+              {demo ? "Enter the demo" : "Continue without Google"}
             </button>
           </form>
         )}
