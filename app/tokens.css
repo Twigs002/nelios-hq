@@ -1,0 +1,77 @@
+/* Nelio's HQ - design tokens. Single source of truth for CSS variables.
+   Brand: Quay 1 International Realty. Gotham → Montserrat stand-in.
+   Montserrat is self-hosted via next/font (app/layout.tsx) and exposed as
+   --font-sans - no runtime third-party font request (POPIA). */
+
+:root {
+  color-scheme: light;
+  /* Base */
+  --paper: #FAFAFA;          /* app background, near-white */
+  --surface: #FFFFFF;        /* cards, sheets */
+  --raised: #FFFFFF;         /* inputs, popovers */
+  --ink: #15171C;            /* primary text */
+  --ink-2: #44474F;          /* secondary text */
+  --ink-3: #686B73;          /* meta, captions (5:1 on paper) */
+  --line: #E8E9EC;           /* hairlines */
+  --line-strong: #D2D5DB;    /* input borders, dividers that must read */
+  --overlay: rgba(21, 23, 28, 0.36);
+  /* Brand - Quay 1 palette only: Blue #3D5BA6 (2728C), Yellow #FDC503 (123C), Sky #98C5ED (279C), Red #D20A03 (1935C). Tints/shades derived. */
+  --accent: #3D5BA6;         /* Quay Blue - primary actions, active state */
+  --accent-hover: #34509A;
+  --accent-ink: #FFFFFF;
+  --accent-text: #3D5BA6;    /* accent used as text/link */
+  --accent-soft: #EAF3FC;    /* selected chip, focus wash */
+  --highlight: #FDC503;      /* Quay Yellow - due today, active tab, selection */
+  --highlight-soft: #FFF5CC; /* selected chips, active nav, selected template */
+  --highlight-edge: #FDC503; /* border on highlight-soft (3:1 on white) */
+  --signal: #D20A03;         /* Quay Red - overdue only */
+  --sky: #98C5ED;            /* Quay Sky */
+  /* Seller codes - mirror Nelio's calendar key. Shape + label carry meaning; colour matches his calendar.
+     Orange, purple and green exist only here (calendar parity), never in UI chrome. */
+  --code-hot: #D20A03;       /* Quay Red - very hot (ringed), hot, seller→LWC (half) */
+  --code-warm: #FDC503;      /* Quay Yellow - warm; star centre on LWC→seller */
+  --code-cold: #3D5BA6;      /* Quay Blue */
+  --code-private: #EE7203;   /* orange */
+  --code-lwc: #15171C;       /* black - LWC, seller→LWC, LWC→seller */
+  --code-stock: #7A4FB0;     /* purple - stock opportunity / open mandate */
+  --code-jswc: #1F9D55;      /* green - just-sold WhatsApp canvassing lead */
+  /* Temperature tags (secondary) - derived from brand heat colours. */
+  --temp-hot: #D20A03;
+  --temp-warm: #FDC503;
+  --temp-cold: #3D5BA6;
+  /* Category tags (secondary, confirm with Nelio) - brand-palette derived. */
+  --cat-valuation: #3D5BA6;   /* Quay Blue */
+  --cat-opportunity: #7A4FB0; /* purple (open mandate) */
+  --cat-competitor: #15171C;  /* black */
+  --cat-private: #EE7203;     /* orange */
+  /* Elevation */
+  --shadow-1: 0 1px 2px rgba(21, 23, 28, 0.04), 0 2px 8px rgba(21, 23, 28, 0.04);
+  --shadow-2: 0 2px 4px rgba(21, 23, 28, 0.04), 0 12px 32px rgba(21, 23, 28, 0.08);
+  --shadow-sheet: 0 -8px 40px rgba(21, 23, 28, 0.10);
+
+  /* Type */
+  --font-sans: var(--font-montserrat), 'Gotham', system-ui, sans-serif;
+  --fs-display: 40px;  --lh-display: 44px;   /* rand values, 500, -0.02em */
+  --fs-h1: 28px;       --lh-h1: 34px;        /* screen titles, 600, -0.01em */
+  --fs-h2: 20px;       --lh-h2: 26px;        /* seller names, 600 */
+  --fs-body: 15px;     --lh-body: 22px;      /* 400 */
+  --fs-small: 13px;    --lh-small: 18px;     /* meta, 500 */
+  --fs-label: 11px;    --lh-label: 16px;     /* UPPERCASE, 700, 0.14em */
+  /* Radius - soft, never bubbly */
+  --r-1: 6px;   /* segmented thumb, small tags */
+  --r-2: 8px;   /* buttons, inputs, chips */
+  --r-3: 12px;  /* cards, panels, table */
+  --r-4: 16px;  /* sheet top corners */
+  --r-full: 999px; /* toggles, grabber, status circles only */
+  /* Size */
+  --hit: 44px;
+  /* Motion */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-fast: 150ms;   /* state changes: chips, toggles, Done */
+  --dur-base: 180ms;   /* hover/press, fades */
+  --dur-sheet: 220ms;  /* sheet open/close */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-sheet: 0ms; }
+}

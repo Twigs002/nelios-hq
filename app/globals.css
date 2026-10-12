@@ -1,0 +1,134 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Nelio's HQ - Tailwind v4 theme. Maps design tokens to utilities:
+   bg-paper text-ink border-line, text-display, rounded-3, shadow-1, etc.
+   Light only - no dark theme (DESIGN.md principle 0). */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-overlay: var(--overlay);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-highlight: var(--highlight);
+  --color-highlight-soft: var(--highlight-soft);
+  --color-highlight-edge: var(--highlight-edge);
+  --color-signal: var(--signal);
+  --color-sky: var(--sky);
+  --color-code-hot: var(--code-hot);
+  --color-code-warm: var(--code-warm);
+  --color-code-cold: var(--code-cold);
+  --color-code-private: var(--code-private);
+  --color-code-lwc: var(--code-lwc);
+  --color-code-stock: var(--code-stock);
+  --color-code-jswc: var(--code-jswc);
+  --color-temp-hot: var(--temp-hot);
+  --color-temp-warm: var(--temp-warm);
+  --color-temp-cold: var(--temp-cold);
+  --color-cat-valuation: var(--cat-valuation);
+  --color-cat-opportunity: var(--cat-opportunity);
+  --color-cat-competitor: var(--cat-competitor);
+  --color-cat-private: var(--cat-private);
+
+  --font-sans: var(--font-sans);
+
+  --text-display: var(--fs-display);
+  --text-display--line-height: var(--lh-display);
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 500;
+  --text-h1: var(--fs-h1);
+  --text-h1--line-height: var(--lh-h1);
+  --text-h1--letter-spacing: -0.01em;
+  --text-h1--font-weight: 600;
+  --text-h2: var(--fs-h2);
+  --text-h2--line-height: var(--lh-h2);
+  --text-h2--letter-spacing: -0.005em;
+  --text-h2--font-weight: 600;
+  --text-body: var(--fs-body);
+  --text-body--line-height: var(--lh-body);
+  --text-small: var(--fs-small);
+  --text-small--line-height: var(--lh-small);
+  --text-small--font-weight: 500;
+  --text-label: var(--fs-label);
+  --text-label--line-height: var(--lh-label);
+  --text-label--letter-spacing: 0.14em;
+  --text-label--font-weight: 700;
+
+  --radius-1: var(--r-1);
+  --radius-2: var(--r-2);
+  --radius-3: var(--r-3);
+  --radius-4: var(--r-4);
+
+  --shadow-1: var(--shadow-1);
+  --shadow-2: var(--shadow-2);
+  --shadow-sheet: var(--shadow-sheet);
+
+  --ease-nhq: var(--ease);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular figures everywhere numbers matter (rand, phones, dates). */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Uppercase tracked label helper (11/16, 700, +14%). In @layer components so
+   a text-* colour utility can override the default ink-3. */
+@layer components {
+  .label {
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+}
+
+/* In @layer base so a text-* colour utility (e.g. text-accent-ink on a
+   button-styled link) overrides the default link colour instead of losing to
+   this unlayered rule. */
+@layer base {
+  a {
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--accent-hover);
+  }
+}
+
+/* 16px inputs to stop iOS zoom-on-focus. */
+input,
+textarea,
+select {
+  font-size: 16px;
+}
