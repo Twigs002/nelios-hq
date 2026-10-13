@@ -58,7 +58,7 @@ export default async function SellerDetailPage({
         </div>
 
         {/* Valuation card */}
-        {s.hasValuation && (
+        {s.hasValuation ? (
           <div className="bg-surface border border-line rounded-3 shadow-1 p-5 flex flex-col gap-1.5">
             <div className="flex justify-between label">
               <span>Valuation · {s.valType}</span>
@@ -71,6 +71,26 @@ export default async function SellerDetailPage({
               className="mt-3 h-12 w-full rounded-2 bg-accent text-accent-ink font-semibold text-[15px] flex items-center justify-center hover:bg-accent-hover"
             >
               Create snapshot
+            </Link>
+            <Link
+              href={`/sellers/${s.id}/cma`}
+              className="h-11 w-full rounded-2 border border-line-strong bg-transparent text-ink font-semibold text-[14px] flex items-center justify-center hover:bg-paper"
+            >
+              Revisit CMA
+            </Link>
+          </div>
+        ) : (
+          <div className="bg-surface border border-line rounded-3 shadow-1 p-5 flex flex-col gap-1.5">
+            <span className="label">Valuation</span>
+            <span className="text-[17px] leading-[22px] font-semibold">No valuation yet</span>
+            <span className="text-[14px] leading-5 text-ink-2">
+              Add comparable sales and draft a CMA to set the asking range.
+            </span>
+            <Link
+              href={`/sellers/${s.id}/cma`}
+              className="mt-3 h-12 w-full rounded-2 bg-accent text-accent-ink font-semibold text-[15px] flex items-center justify-center hover:bg-accent-hover"
+            >
+              Draft a CMA
             </Link>
           </div>
         )}
