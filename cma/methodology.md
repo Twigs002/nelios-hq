@@ -91,6 +91,41 @@ With no same-building sales available, fall back to nearby comparable sales and
 lower your confidence accordingly. The fuller written method is in
 `block-sales.md`.
 
+## Street sales and houses (full title)
+
+When the subject is a freestanding house (full title), or you are valuing
+across a street rather than a single building, the method widens. Some of these
+rules are still being finalised with the team; treat them as the current
+working approach. The fuller written method is in `street-sales.md`.
+
+- **Comps are recent sales of the same property type on the same street and
+  immediately nearby.** In CMA a street is split by suburb; the suburb sales
+  lists are the source of the actual sales, and the street inventory is a
+  cross-check.
+- **Match comps to the street by address, not by name.** A scheme called "Ocean
+  View Heights" can sit on a different street (for example 5 Antwerp Road). Only
+  include sales whose address is on the subject's street.
+- **Houses and flats are valued separately and never pooled.** Rand per square
+  metre is not comparable between a house (land) and a flat (floor). Keep two
+  sets of figures and compare like with like.
+- **House R/m2 is price divided by the erf (land) extent**, which CMA always
+  has. Show building floor size where known and never estimate it; if it is
+  missing, say so rather than guessing.
+- **Include** residential houses (usage residential or two-dwelling
+  residential), any house type. **Exclude** open space, municipal and
+  commercial, and any transfer marked estate, court order, donation, vesting,
+  nil or no-price.
+- **Vacant residential erfs** (land with a price) drag a house median down.
+  Flag them and ask before including them in the house figures.
+- **Per-type medians.** Compute house medians from house sales only and flat
+  medians from flat sales only, over the window, from unrounded values.
+- **Benchmark** houses against the suburb's full-title average R/m2 (erf) where
+  known, and flats against the sectional-title average, never crossing the two.
+- **Flag street-specific oddities:** an erf that sold twice in the window (use
+  the later sale), a corner property CMA files under a side street, a house with
+  a blank usage, a township label that differs from the suburb. Do not silently
+  fix them.
+
 ## Rules
 
 - All amounts are whole South African rands (no cents, no abbreviations).

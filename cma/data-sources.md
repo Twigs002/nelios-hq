@@ -14,8 +14,11 @@ including the public demo and local runs.
 The intended live feed is cmainfo.co.za, which returns recent sold and
 transferring sales for a suburb or street. For a flat, the key view is Sales
 and Transfers, "Sales in Str/Scheme/Estate" (sectional title), which lists the
-recent sales in one building (the block) - see `block-sales.md`. Connecting it
-would pre-fill the comparable-sales list so Nelio does not type them in.
+recent sales in one building (the block) - see `block-sales.md`. For a house or
+a whole street, the actual sales come from the suburb sales lists (Sales tab,
+Residential Full Title and Sectional Title), filtered to the street by address,
+with the street inventory as a cross-check - see `street-sales.md`. Connecting
+it would pre-fill the comparable-sales list so Nelio does not type them in.
 
 Status: parked. The login flow is mapped but blocked on cmainfo's OTP / 2FA
 step, which a headless job cannot clear on its own. Options to revisit later:
