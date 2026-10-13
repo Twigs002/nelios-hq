@@ -9,6 +9,9 @@ instruction set the AI assistant follows to draft a valuation for a seller.
 - `block-sales.md` - how to value a sectional-title flat from recent sales in
   the same building (the strongest comps for apartments). Referenced by
   `methodology.md`.
+- `street-sales.md` - how to value across a street: houses (full title, R/m2 on
+  erf) and flats (sectional title, R/m2 on floor), valued separately and never
+  pooled. Referenced by `methodology.md`. Some rules are pending team sign-off.
 - `data-sources.md` - where comparable sales come from now (manual / paste) and
   the planned live feed (cmainfo.co.za, currently blocked on OTP).
 
