@@ -6,6 +6,9 @@ instruction set the AI assistant follows to draft a valuation for a seller.
 - `methodology.md` - the operative file. It is read at runtime and sent to
   Claude as the system instruction for every CMA draft. Edit this to change how
   valuations are produced; no code change is needed.
+- `block-sales.md` - how to value a sectional-title flat from recent sales in
+  the same building (the strongest comps for apartments). Referenced by
+  `methodology.md`.
 - `data-sources.md` - where comparable sales come from now (manual / paste) and
   the planned live feed (cmainfo.co.za, currently blocked on OTP).
 

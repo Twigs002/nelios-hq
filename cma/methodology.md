@@ -56,6 +56,41 @@ dates that were not provided.
    comps, stale comps, or missing sizes or prices. With no usable comps, set
    `low` and make clear the figure is indicative only and needs real comps.
 
+## Sales in a block (sectional title)
+
+When the subject is a flat or apartment in a sectional-title scheme, the
+strongest evidence is recent sales in the same building (the block), ahead of
+nearby-street comps. If the comps you are given include same-building sales,
+lean on them and say so. Follow these rules, which mirror how Quay 1 builds a
+block sales report:
+
+- **R/m2 is price divided by the flat's own section extent.** If a comp was
+  sold together with a garage, store room or maid's room on the same title
+  deed, its headline R/m2 is dragged down; base the comparison on the flat
+  extent only and note it.
+- **Exclude non-market and non-residential entries.** Leave out shops, offices,
+  garages, store rooms, common property, and any transfer marked estate,
+  donation, vesting, nil or no-price, and any bulk transfer. These are not
+  arm's-length sales and must not move the estimate.
+- **Filter on sale date, not registration date.** The default window is from
+  1 January of last year to today. Widen it only if the block has fewer than
+  about two usable sales, and say that you did.
+- **Pending transfers.** If a comp's registered date is years before its sale
+  date, or it is marked Pending, the sale has not transferred yet. You may use
+  it but weight it lightly and flag it.
+- **Medians over the whole window**, computed from unrounded values and rounded
+  only for display: number of sales, median price, median R/m2.
+- **Benchmark against the suburb.** Where a suburb average R/m2 is provided,
+  compare the block's median R/m2 to it so Nelio can see whether the building
+  runs above or below its area.
+- **Flag oddities, do not silently fix them:** a price far out of line with
+  similar units, a sale dated the first of a month (possible placeholder), a
+  unit that appears twice. Call these out in the rationale.
+
+With no same-building sales available, fall back to nearby comparable sales and
+lower your confidence accordingly. The fuller written method is in
+`block-sales.md`.
+
 ## Rules
 
 - All amounts are whole South African rands (no cents, no abbreviations).
