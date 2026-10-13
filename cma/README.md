@@ -30,3 +30,12 @@ all a valuation needs. See `lib/cma/context.ts` for exactly what is assembled.
 Set `ANTHROPIC_API_KEY` in the environment to enable the feature. Without it,
 the CMA page still shows the comps editor and explains that AI drafting is not
 configured; nothing breaks.
+
+## Demo mode
+
+On the public demo (`DEMO_DB=true`), there is no API key, so the draft button
+produces a local sample estimate instead of calling Claude: a median rand per
+square metre from the comps, applied to the subject's floor size, with a band
+around it. It is deterministic and clearly labelled "Sample" in the UI. See
+`lib/cma/demo.ts`. Real deployments with a key always use the full AI method in
+`methodology.md`.

@@ -75,7 +75,11 @@ export default async function CmaPage({ params }: { params: Promise<{ id: string
         <CompsEditor sellerId={id} comps={compRows} />
 
         <div className="pt-6 border-t border-line">
-          <CmaAssistant sellerId={id} hasComps={compRows.length > 0} />
+          <CmaAssistant
+            sellerId={id}
+            hasComps={compRows.length > 0}
+            demo={process.env.DEMO_DB === "true"}
+          />
         </div>
       </div>
     </main>

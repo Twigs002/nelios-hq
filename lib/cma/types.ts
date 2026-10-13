@@ -12,6 +12,8 @@ export interface CmaDraft {
   confidenceReason: string;
   rationale: string;
   compNotes: { address: string; note: string }[];
+  /** True when produced by the local demo heuristic, not the AI model. */
+  demo?: boolean;
 }
 
 /** The POPIA-minimised subject sent to the AI: a property, not a named person. */

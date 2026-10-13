@@ -17,7 +17,15 @@ const CONF_LABEL: Record<Confidence, string> = {
   high: "High confidence",
 };
 
-export function CmaAssistant({ sellerId, hasComps }: { sellerId: string; hasComps: boolean }) {
+export function CmaAssistant({
+  sellerId,
+  hasComps,
+  demo = false,
+}: {
+  sellerId: string;
+  hasComps: boolean;
+  demo?: boolean;
+}) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [applying, startApply] = useTransition();
@@ -53,10 +61,11 @@ export function CmaAssistant({ sellerId, hasComps }: { sellerId: string; hasComp
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <span className="label">AI draft</span>
+        <span className="label">{demo ? "Draft (demo)" : "AI draft"}</span>
         <span className="text-small text-ink-2">
-          Drafts a valuation from the comparable sales above, for you to review.
-          It never publishes on its own.
+          {demo
+            ? "This demo builds a sample estimate from the comparable sales above. The live tool uses Claude for a fuller draft. Nothing is published on its own."
+            : "Drafts a valuation from the comparable sales above, for you to review. It never publishes on its own."}
         </span>
       </div>
 
@@ -66,7 +75,13 @@ export function CmaAssistant({ sellerId, hasComps }: { sellerId: string; hasComp
         disabled={pending || !hasComps}
         className="h-11 rounded-2 bg-accent text-accent-ink font-semibold text-[14px] hover:bg-accent-hover disabled:opacity-40"
       >
-        {pending ? "Drafting..." : draft ? "Draft again" : "Draft CMA with AI"}
+        {pending
+          ? "Drafting..."
+          : draft
+            ? "Draft again"
+            : demo
+              ? "Draft sample CMA"
+              : "Draft CMA with AI"}
       </button>
 
       {!hasComps && (
@@ -79,10 +94,17 @@ export function CmaAssistant({ sellerId, hasComps }: { sellerId: string; hasComp
 
       {draft && (
         <div className="flex flex-col gap-4 border border-line rounded-3 bg-surface p-5">
-          <div className="flex items-baseline justify-between">
+          <div className="flex items-baseline justify-between gap-2">
             <span className="label">Recommended asking</span>
-            <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">
-              {CONF_LABEL[draft.confidence]}
+            <span className="flex items-center gap-2">
+              {draft.demo && (
+                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-accent-text bg-accent-soft rounded-full px-2 py-0.5">
+                  Sample
+                </span>
+              )}
+              <span className="text-[11px] font-bold tracking-[0.12em] uppercase text-ink-3">
+                {CONF_LABEL[draft.confidence]}
+              </span>
             </span>
           </div>
           <span className="text-[36px] leading-[42px] font-medium tracking-[-0.025em] tnum">

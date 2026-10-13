@@ -7,6 +7,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import Anthropic from "@anthropic-ai/sdk";
 import { contextToPrompt, parseDraft } from "./context";
+import { demoDraft } from "./demo";
 import type { CmaContext, CmaDraft } from "./types";
 
 export type DraftResult = { ok: true; draft: CmaDraft } | { ok: false; error: string };
@@ -49,17 +50,27 @@ function methodology(): string {
 }
 
 export async function draftCmaFromContext(ctx: CmaContext): Promise<DraftResult> {
+  if (ctx.comps.length === 0) {
+    return {
+      ok: false,
+      error: "Add at least one comparable sale before drafting a CMA.",
+    };
+  }
+
+  // Public demo: no API key is set, so produce a local sample estimate instead
+  // of calling the model. Clearly labelled as a demo result in the UI.
+  if (process.env.DEMO_DB === "true") {
+    const d = demoDraft(ctx);
+    return d
+      ? { ok: true, draft: d }
+      : { ok: false, error: "Add a comparable sale with a price to draft a demo estimate." };
+  }
+
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return {
       ok: false,
       error: "AI drafting is not configured. Set ANTHROPIC_API_KEY to enable it.",
-    };
-  }
-  if (ctx.comps.length === 0) {
-    return {
-      ok: false,
-      error: "Add at least one comparable sale before drafting a CMA.",
     };
   }
 
