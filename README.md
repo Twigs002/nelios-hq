@@ -7,10 +7,19 @@ Vercel's free Hobby plan.
 > Seller data is personal information under POPIA. The app is allowlist-only, has no
 > analytics or third-party scripts, and never logs names or phone numbers.
 
+## Demo vs real app
+The public demo runs with **no external services**: an in-memory PGlite database
+pre-seeded with fictional sellers (`DEMO_DB=true`), and an open password-less
+sign-in (`AUTH_DEV_LOGIN=true`) that offers fake personas, never the real
+allowlist. The dev sign-in only activates against an embedded database (demo or
+local PGlite), never a Neon deployment, so it can't become a back door to real
+data. **Keep the demo and the real (Neon) app as separate Vercel projects.**
+
 ## Stack
 - Next.js 16 (App Router, TypeScript), Tailwind v4, self-hosted Montserrat (Gotham stand-in).
-- Neon Postgres (free) + Drizzle ORM with migrations.
+- Neon Postgres (free) + Drizzle ORM with migrations. Local/demo can use embedded PGlite.
 - Auth.js (NextAuth v5) Google sign-in, allowlisted by `ALLOWED_EMAILS`.
+- AI CMA assistant via the Anthropic API (`claude-opus-4-8`), gated by `ANTHROPIC_API_KEY`.
 - Timezone Africa/Johannesburg, currency ZAR (en-ZA).
 
 ## Local setup
@@ -32,6 +41,8 @@ See `.env.example` for the full list and a one-line description of each. Summary
 | `ALLOWED_EMAILS` | Comma-separated sign-in allowlist. |
 | `SYNC_CALENDAR` / `CALENDAR_DRY_RUN` / `GOOGLE_CALENDAR_ID` | Calendar sync (Phase 5). |
 | `SLACK_WEBHOOK_URL` / `DIGEST_DRY_RUN` / `CRON_SECRET` | Morning digest (Phase 6). |
+| `ANTHROPIC_API_KEY` | Enables the AI CMA draft. Absent (e.g. demo) = drafting is disabled gracefully. |
+| `DEMO_DB` / `DB_DRIVER` / `AUTH_DEV_LOGIN` | Demo/local: in-memory or disk PGlite, and the password-less dev sign-in. |
 | `TZ` | `Africa/Johannesburg`. |
 
 ## Setup services
@@ -55,6 +66,9 @@ See `.env.example` for the full list and a one-line description of each. Summary
 - **Google Calendar sync** - behind `SYNC_CALENDAR` (off) + `CALENDAR_DRY_RUN` (on); preview
   exactly what would change before enabling. `calendar.events` scope only.
 - **Morning digest** - weekday 07:00 SAST Slack summary (dry-run by default, skips holidays).
+- **AI CMA assistant** - on a seller's CMA page, draft a valuation from the comparable
+  sales (`cma/` methodology, `claude-opus-4-8`). It only proposes; nothing is written
+  until Nelio applies it. On the demo (no key) a local sample estimate stands in.
 - **Valuation snapshot** - comparable sales (manual + CSV paste) → branded 1080×1350 PNG + PDF.
 - **Settings** - "Confirm with Nelio" banner + per-group confirm toggles for all placeholders.
 - **PWA** - installable on the iPhone home screen; offline shell (never caches seller data).
@@ -95,6 +109,9 @@ action re-checks the allowlist. Keep all secrets in env vars.
 - `app/` - routes and screens.
 - `db/` - Drizzle schema, client, migrations, seed.
 - `lib/` - domain logic: `codes` (seller codes + marks), `format` (ZAR/dates/phone),
-  `followup` (cadence + weekend/holiday engine), auth/session helpers.
+  `followup` (cadence + weekend/holiday engine), `cma/` (CMA context + draft + demo),
+  auth/session helpers.
+- `cma/` - the AI CMA methodology Claude follows (block + street/full-title), editable
+  without code changes; data-source notes (cmainfo.co.za pending).
 - `config/` - `nelio-brief` (placeholder brief, confirm flags), `sa-holidays` (2026 and 2027).
 - `public/brand/` - Quay 1 logos.

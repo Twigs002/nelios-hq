@@ -41,9 +41,18 @@ export async function GET(req: NextRequest) {
   const webhook = process.env.SLACK_WEBHOOK_URL;
 
   if (dryRun || !webhook) {
-    // Do not post. Log only (no PII beyond names, which stay in our logs).
-    console.log("[digest dry-run]\n" + text);
-    return Response.json({ dryRun: true, reason: webhook ? "DIGEST_DRY_RUN" : "no webhook", counts, today });
+    // Do not post. Never log or return the message body: it contains seller
+    // names, and the app never logs names or phone numbers (POPIA). Counts only.
+    // To eyeball the actual message, run the digest locally.
+    console.log(
+      `[digest dry-run] ${counts.dueToday} due today, ${counts.overdue} overdue (${today})`,
+    );
+    return Response.json({
+      dryRun: true,
+      reason: webhook ? "DIGEST_DRY_RUN" : "no webhook",
+      counts,
+      today,
+    });
   }
 
   const res = await fetch(webhook, {

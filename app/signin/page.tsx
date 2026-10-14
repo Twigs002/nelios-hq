@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { auth, signIn } from "@/auth";
-import { allowedEmails } from "@/lib/allowlist";
+import { allowedEmails, devLoginEnabled } from "@/lib/allowlist";
 
 export default async function SignInPage({
   searchParams,
@@ -12,7 +12,7 @@ export default async function SignInPage({
   if (session?.user?.email) redirect("/");
   const { error } = await searchParams;
   const refused = error === "AccessDenied";
-  const devLogin = process.env.AUTH_DEV_LOGIN === "true";
+  const devLogin = devLoginEnabled();
   const demo = process.env.DEMO_DB === "true";
   const emails = allowedEmails();
 
