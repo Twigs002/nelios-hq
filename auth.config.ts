@@ -3,7 +3,7 @@
 import type { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
-import { isAllowed } from "@/lib/allowlist";
+import { isAllowed, devLoginEnabled } from "@/lib/allowlist";
 import { GOOGLE_SCOPE_STRING } from "@/lib/google-scopes";
 
 const providers: NextAuthConfig["providers"] = [
@@ -19,8 +19,9 @@ const providers: NextAuthConfig["providers"] = [
 ];
 
 // Local-only convenience: sign in as any allowlisted email without Google.
-// Enabled ONLY when AUTH_DEV_LOGIN=true (never set this in production).
-if (process.env.AUTH_DEV_LOGIN === "true") {
+// Enabled ONLY when AUTH_DEV_LOGIN=true AND the DB is embedded (demo/local) -
+// see devLoginEnabled(). Never activates against a real Neon deployment.
+if (devLoginEnabled()) {
   providers.push(
     Credentials({
       id: "dev",

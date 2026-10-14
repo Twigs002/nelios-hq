@@ -40,11 +40,11 @@ export async function applyCma(
       recommendedPrice: clean.recommendedPrice,
       valueLow: clean.valueLow,
       valueHigh: clean.valueHigh,
-      // A CMA-derived figure is a desktop valuation. Only stamp the date/type
-      // if there is not already a valuation recorded, so we don't overwrite a
-      // property valuation Nelio did in person.
-      valuationType: seller.valuationType ?? "DV",
-      valuationDate: seller.valuationDate ?? todayInJohannesburg(),
+      // A CMA-derived figure IS a fresh desktop valuation done today. Stamp the
+      // type and date to match, so the snapshot never mislabels a new AI figure
+      // as an older in-person (PV) valuation Nelio did on a different date.
+      valuationType: "DV",
+      valuationDate: todayInJohannesburg(),
       updatedAt: new Date(),
     })
     .where(eq(sellers.id, sellerId));
